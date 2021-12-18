@@ -8,9 +8,6 @@ function Home() {
       <h3>Todays's Picks</h3>
       <ProductList>
         <Product />
-        <Product />
-        <Product />
-        <Product />
       </ProductList>
     </div>
   );
