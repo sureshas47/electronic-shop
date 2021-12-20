@@ -4,7 +4,7 @@ export const ItemContainer = styled.div`
   background-color: #a13737;
   width: 250px;
   height: 400px;
-  border-right: 2px solid black;
+  border-right: 1px solid gray;
   margin: 10px auto;
   display: flex;
   align-items: center;
@@ -33,6 +33,11 @@ export const ButtonAddToCart = styled.button`
   cursor: pointer;
   font-weight: 700;
   margin-top: 30px;
+  ${(props) => (props.product < 0 ? "pointer-events: none; opacity:0.3;" : "")}
+  /* :disabled {
+    pointer-events: none;
+    opacity: 0.3;
+  } */
   :hover {
     background-color: white;
     color: black;
