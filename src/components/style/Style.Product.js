@@ -1,5 +1,13 @@
 import styled from "styled-components";
 
+export const Wrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  background-color: black;
+  gap: "30px";
+  overflow: "hidden";
+`;
+
 export const ItemContainer = styled.div`
   background-color: #a13737;
   width: 250px;

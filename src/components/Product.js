@@ -1,5 +1,6 @@
-import { React, useEffect, useState, useRef } from "react";
+import { React, useEffect, useState, useRef, useHistory } from "react";
 import {
+  Wrapper,
   ItemContainer,
   ItemImage,
   ItemDetails,
@@ -21,20 +22,16 @@ function Product() {
       .catch((error) => console.log(error));
   }, []);
 
+  //   const history = useHistory()
+  //   onClick = {()=> history.push('/test', { data: { name: 'test' } })
+  // } //test page ma const testComp = ({match}) =>{ console.log(match) // should show data }
+
   return (
     <>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
-          backgroundColor: "black",
-          gap: "30px",
-          overflow: "hidden",
-        }}
-      >
+      <Wrapper>
         {products.map((product) => {
           return (
-            <ItemContainer key={product.id}>
+            <ItemContainer key={product.id} className="card">
               <ItemImage>
                 <Img
                   src="https://electronic-ecommerce.herokuapp.com/fantechHeadset.jpg"
@@ -59,19 +56,15 @@ function Product() {
                 <ItemPrice>{product.price}</ItemPrice>
               </ItemDetails>
               <AddToCart>
-                <ButtonAddToCart
-                  product={product.stock}
-                  onClick={() => setShowComponent(true)}
-                >
+                <ButtonAddToCart onClick={() => setShowComponent(true)}>
                   Add to Cart
                 </ButtonAddToCart>
               </AddToCart>
             </ItemContainer>
           );
         })}
-
-        <div>{showComponent ? <SidebarCart /> : null}</div>
-      </div>
+        {showComponent ? <SidebarCart /> : null}
+      </Wrapper>
     </>
   );
 }

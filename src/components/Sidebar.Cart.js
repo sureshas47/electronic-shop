@@ -1,82 +1,75 @@
 import React from "react";
-import { Img, ButtonAddToCart } from "./style/Style.Product";
-import { SideCart } from "./style/Style.SidebarCart";
+import { ButtonAddToCart } from "./style/Style.Product";
+import { SideCart, CartItems, Img } from "./style/Style.SidebarCart";
+import "@fortawesome/fontawesome-free/js/all.js";
 
-function SidebarCart() {
+import { connect } from "react-redux"; // connect is a function helps connect sidebar component to redux store
+
+function SidebarCart(props) {
   return (
     <>
       <SideCart>
-        <Img
-          src="https://electronic-ecommerce.herokuapp.com/fantechHeadset.jpg"
-          alt="cart"
-        />
-        <ButtonAddToCart>Checkout</ButtonAddToCart>
+        <i
+          style={{ fontSize: "30px", color: "white", cursor: "pointer" }}
+          className="fa fa-times"
+          aria-hidden="true"
+        ></i>
+        <CartItems>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Img src="https://electronic-ecommerce.herokuapp.com/fantechHeadset.jpg" />
+            <small>fantech headphone</small>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <p>electronics</p>
+            <p>
+              In-stock <strong>- 3</strong>
+            </p>
+
+            <p>2020-1-3</p>
+          </div>
+          <div>
+            <p>price $1300</p>
+          </div>
+        </CartItems>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          <p style={{ color: "white" }}>Total Price rs.5000</p>
+          <ButtonAddToCart style={{ color: "orange" }}>
+            Checkout
+          </ButtonAddToCart>
+        </div>
+        <p>{props.posts.id}</p>
       </SideCart>
     </>
   );
 }
 
-export default SidebarCart;
+// since we already provided the store that has some states to all component,
+// mapSateToProps gets state from store and pass it to component as props
+function mapStateToProps(state) {
+  return {
+    posts: state.posts,
+  };
+}
 
-// <!DOCTYPE html>
-// <html>
-// 	<head>
-// 		<title></title>
-// 		<style>
-// 				/* The side navigation menu */
-// 			done
-
-// 			/* The navigation menu links */
-// 			done
-
-// 			/* When you mouse over the navigation links, change their color */
-// 			done
-//
-//* Position and style the close button (top right corner) */
-// 			.sidenav .closebtn {
-// 			    position: absolute;
-// 			    top: 0;
-// 			    right: 25px;
-// 			    font-size: 36px;
-// 			    margin-left: 50px;
-// 			}
-
-// 			/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
-// 			#main {
-// 			    transition: margin-left .5s;
-// 			    padding: 20px;
-// 			}
-// 			.sidenav {
-// 			    right: 0;
-// 			}
-// 			/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
-// 			@media screen and (max-height: 450px) {
-// 			    .sidenav {padding-top: 15px;}
-// 			    .sidenav a {font-size: 18px;}
-// 			}
-// 			.sidenav {
-// 			    right: 0;
-// 			}
-// 		</style>
-// 	</head>
-// 	<body>
-
-// 		<div id="mySidenav" class="sidenav">
-// 		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-// 		  <a href="#">ITEM 1</a>
-// 		  <a href="#">ITEM 2</a>
-// 		</div>
-
-// 	</body>
-// 	<script type="text/javascript">
-
-// 	/* Simple appearence with animation AN-1*/
-// function openNav() {
-//   document.getElementById("mySidenav").style.width = "250px";
-// }
-// 	function closeNav() {
-// 	    document.getElementById("mySidenav").style.width = "0";
-// 	}
-// 	/* Simple appearence with animation AN-1*/
-// 	</script>
-// </html>
+export default connect(mapStateToProps)(SidebarCart);
