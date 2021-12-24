@@ -11,10 +11,14 @@ import {
 } from "./style/Style.Product";
 import SidebarCart from "./Sidebar.Cart";
 import { getData } from "../api/request";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../components/redux/actions/action";
 
 function Product() {
   const [products, setProducts] = useState([]);
   const [showComponent, setShowComponent] = useState(false);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getData()
@@ -56,15 +60,20 @@ function Product() {
                 <ItemPrice>{product.price}</ItemPrice>
               </ItemDetails>
               <AddToCart>
-                <ButtonAddToCart onClick={() => setShowComponent(true)}>
+                <ButtonAddToCart
+                  onClick={() => {
+                    dispatch(addToCart([product]));
+                    setShowComponent(true);
+                  }}
+                >
                   Add to Cart
                 </ButtonAddToCart>
               </AddToCart>
             </ItemContainer>
           );
         })}
-        {showComponent ? <SidebarCart /> : null}
       </Wrapper>
+      {showComponent ? <SidebarCart /> : null}
     </>
   );
 }

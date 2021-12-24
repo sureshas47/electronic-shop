@@ -1,8 +1,7 @@
 import { createStore } from "redux";
-import rootReducer from "./reducers/rootReducer";
+import addToCart from "./reducer/reducer";
 
-function makeStore() {
-  const store = createStore(rootReducer);
-  return store;
-}
-export default makeStore();
+export const store = createStore(
+  addToCart,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);

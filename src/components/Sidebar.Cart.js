@@ -3,9 +3,12 @@ import { ButtonAddToCart } from "./style/Style.Product";
 import { SideCart, CartItems, Img } from "./style/Style.SidebarCart";
 import "@fortawesome/fontawesome-free/js/all.js";
 
-import { connect } from "react-redux"; // connect is a function helps connect sidebar component to redux store
+// import { connect } from "react-redux"; // connect is a function helps connect sidebar component to redux store
+// alternative of mapStateToProps, mapDispatchToProps are useSelector and useDispatch
+import { useSelector } from "react-redux";
 
 function SidebarCart(props) {
+  const myCartItems = useSelector((state) => state.cartItems[0]);
   return (
     <>
       <SideCart>
@@ -14,37 +17,42 @@ function SidebarCart(props) {
           className="fa fa-times"
           aria-hidden="true"
         ></i>
-        <CartItems>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Img src="https://electronic-ecommerce.herokuapp.com/fantechHeadset.jpg" />
-            <small>fantech headphone</small>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <p>electronics</p>
-            <p>
-              In-stock <strong>- 3</strong>
-            </p>
+        {myCartItems.map((item) => {
+          return (
+            <CartItems key={item.createDate}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Img src="https://electronic-ecommerce.herokuapp.com/fantechHeadset.jpg" />
+                <small> {item.name}</small>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                }}
+              >
+                <p>{item.category[0]}</p>
+                <p>
+                  {item.stock
+                    ? item.stock + " (In-Stock)"
+                    : item.stock + " (Out-of-Stock)"}
+                </p>
 
-            <p>2020-1-3</p>
-          </div>
-          <div>
-            <p>price $1300</p>
-          </div>
-        </CartItems>
-
+                <p>{item.createDate}</p>
+              </div>
+              <div>
+                <p>{item.price}</p>
+              </div>
+            </CartItems>
+          );
+        })}
         <div
           style={{
             display: "flex",
@@ -58,7 +66,6 @@ function SidebarCart(props) {
             Checkout
           </ButtonAddToCart>
         </div>
-        <p>{props.posts.id}</p>
       </SideCart>
     </>
   );
@@ -66,10 +73,11 @@ function SidebarCart(props) {
 
 // since we already provided the store that has some states to all component,
 // mapSateToProps gets state from store and pass it to component as props
-function mapStateToProps(state) {
-  return {
-    posts: state.posts,
-  };
-}
+// function mapStateToProps(state) {
+//   return {
+//     posts: state,
+//   };
+// }
 
-export default connect(mapStateToProps)(SidebarCart);
+// export default connect(mapStateToProps)(SidebarCart);
+export default SidebarCart;
