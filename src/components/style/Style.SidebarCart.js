@@ -8,9 +8,8 @@ export const SideCart = styled.div`
   right: 0;
   background-color: #111;
   padding-top: 60px;
+  overflow: hidden;
   overflow-y: scroll;
-  overflow-x: scroll;
-  /* overflow-x: hidden;  Disable horizontal scroll */
   /* z-index: 1; Stay on top */
 `;
 

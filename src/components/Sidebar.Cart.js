@@ -11,11 +11,19 @@ function SidebarCart() {
   const myCartItems = useSelector((state) => {
     return state.cartItems;
   });
+  const itemQuantity = useSelector((state) => state.counter);
   const [cart, setCart] = useState([]);
   useEffect(() => {
     console.log("reached here");
     setCart(myCartItems);
   }, [myCartItems]);
+
+  // total price of cart
+  let totalPrice = cart.reduce((prevPrice, currentPrice) => {
+    const trimedPrice = currentPrice.price.slice(1);
+    const price = JSON.parse(trimedPrice);
+    return price * 100 + prevPrice;
+  }, 0);
 
   return (
     <>
@@ -26,6 +34,12 @@ function SidebarCart() {
           aria-hidden="true"
         ></i>
         {cart.map((item) => {
+          let dateFormat = new Date(item.createDate);
+          var dd = String(dateFormat.getDate()).padStart(2, "0");
+          var mm = String(dateFormat.getMonth() + 1).padStart(2, "0"); //January is 0!
+          var yyyy = dateFormat.getFullYear();
+          dateFormat = mm + "/" + dd + "/" + yyyy;
+
           return (
             <CartItems key={item.id}>
               <div
@@ -53,7 +67,7 @@ function SidebarCart() {
                     : item.stock + " (Out-of-Stock)"}
                 </p>
 
-                <p>{item.createDate}</p>
+                <p>{dateFormat}</p>
               </div>
               <div>
                 <p>{item.price}</p>
@@ -70,7 +84,16 @@ function SidebarCart() {
             flexDirection: "column",
           }}
         >
-          <p style={{ color: "white" }}>Total Price rs.5000</p>
+          <div style={{ color: "white", fontSize: "18px" }}>
+            <p>
+              Items added:-
+              <strong style={{ color: "green" }}>{` (${itemQuantity})`}</strong>
+            </p>
+            <p>
+              Price:-{" "}
+              <strong style={{ color: "green" }}>{`Rs. ${totalPrice}`}</strong>
+            </p>
+          </div>
           <ButtonAddToCart style={{ color: "orange" }}>
             Checkout
           </ButtonAddToCart>
