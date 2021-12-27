@@ -25,7 +25,7 @@ function Product() {
       .then((data) => setProducts(data.data.product))
       .catch((error) => console.log(error));
   }, []);
-
+  // pass data through route
   //   const history = useHistory()
   //   onClick = {()=> history.push('/test', { data: { name: 'test' } })
   // } //test page ma const testComp = ({match}) =>{ console.log(match) // should show data }
@@ -62,8 +62,9 @@ function Product() {
               <AddToCart>
                 <ButtonAddToCart
                   onClick={() => {
-                    dispatch(addToCart([product]));
+                    dispatch(addToCart(product));
                     setShowComponent(true);
+                    // alert(JSON.stringify(product, null, 2));
                   }}
                 >
                   Add to Cart

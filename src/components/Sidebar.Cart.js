@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ButtonAddToCart } from "./style/Style.Product";
 import { SideCart, CartItems, Img } from "./style/Style.SidebarCart";
 import "@fortawesome/fontawesome-free/js/all.js";
+import { useSelector } from "react-redux";
 
 // import { connect } from "react-redux"; // connect is a function helps connect sidebar component to redux store
 // alternative of mapStateToProps, mapDispatchToProps are useSelector and useDispatch
-import { useSelector } from "react-redux";
 
-function SidebarCart(props) {
-  const myCartItems = useSelector((state) => state.cartItems[0]);
+function SidebarCart() {
+  const myCartItems = useSelector((state) => {
+    return state.cartItems;
+  });
+  const [cart, setCart] = useState([]);
+  useEffect(() => {
+    console.log("reached here");
+    setCart(myCartItems);
+  }, [myCartItems]);
+
   return (
     <>
       <SideCart>
@@ -17,9 +25,9 @@ function SidebarCart(props) {
           className="fa fa-times"
           aria-hidden="true"
         ></i>
-        {myCartItems.map((item) => {
+        {cart.map((item) => {
           return (
-            <CartItems key={item.createDate}>
+            <CartItems key={item.id}>
               <div
                 style={{
                   display: "flex",
@@ -53,6 +61,7 @@ function SidebarCart(props) {
             </CartItems>
           );
         })}
+
         <div
           style={{
             display: "flex",
