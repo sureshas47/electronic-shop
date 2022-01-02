@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { ButtonAddToCart } from "./style/Style.Product";
+// import { ButtonAddToCart } from "./style/Style.Product";
 import { SideCart, CartItems, Img } from "./style/Style.SidebarCart";
 import "@fortawesome/fontawesome-free/js/all.js";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+// import Checkout from "./Checkout";
+import RootButton from "./Buttons/Button";
+import styled from "styled-components";
+import { color } from "styled-system";
+
+const CheckoutButton = styled(RootButton)`
+  background-color: white;
+  ${color}
+`;
 
 // import { connect } from "react-redux"; // connect is a function helps connect sidebar component to redux store
 // alternative of mapStateToProps, mapDispatchToProps are useSelector and useDispatch
@@ -24,6 +34,8 @@ function SidebarCart() {
     const price = JSON.parse(trimedPrice);
     return price * 100 + prevPrice;
   }, 0);
+
+  const history = useHistory();
 
   return (
     <>
@@ -94,9 +106,9 @@ function SidebarCart() {
               <strong style={{ color: "green" }}>{`Rs. ${totalPrice}`}</strong>
             </p>
           </div>
-          <ButtonAddToCart style={{ color: "orange" }}>
-            Checkout
-          </ButtonAddToCart>
+          <div onClick={() => history.push("/checkout")}>
+            <CheckoutButton color="orange">Checkout</CheckoutButton>
+          </div>
         </div>
       </SideCart>
     </>

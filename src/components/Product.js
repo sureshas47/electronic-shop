@@ -6,13 +6,21 @@ import {
   ItemDetails,
   ItemPrice,
   AddToCart,
-  ButtonAddToCart,
   Img,
 } from "./style/Style.Product";
 import SidebarCart from "./Sidebar.Cart";
 import { getData } from "../api/request";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../components/redux/actions/action";
+import styled from "styled-components";
+import RootButton from "./Buttons/Button";
+
+const ButtonAddToCart = styled(RootButton)`
+  background-color: black;
+  color: white;
+  ${(props) =>
+    props.product.stock < 0 ? "pointer-events:none; opacity:0.2" : ""};
+`;
 
 function Product() {
   const [products, setProducts] = useState([]);
@@ -59,16 +67,14 @@ function Product() {
                 </p>
                 <ItemPrice>{product.price}</ItemPrice>
               </ItemDetails>
-              <AddToCart>
-                <ButtonAddToCart
-                  onClick={() => {
-                    dispatch(addToCart(product));
-                    setShowComponent(true);
-                    // alert(JSON.stringify(product, null, 2));
-                  }}
-                >
-                  Add to Cart
-                </ButtonAddToCart>
+              <AddToCart
+                onClick={() => {
+                  dispatch(addToCart(product));
+                  setShowComponent(true);
+                  // alert(JSON.stringify(product, null, 2));
+                }}
+              >
+                <ButtonAddToCart product={product}>Add to Cart</ButtonAddToCart>
               </AddToCart>
             </ItemContainer>
           );

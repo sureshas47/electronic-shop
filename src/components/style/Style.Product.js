@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { color } from "styled-system";
 
 export const Wrapper = styled.div`
   display: grid;
@@ -30,25 +31,29 @@ export const ItemPrice = styled.strong`
 `;
 export const AddToCart = styled.div``;
 
-export const ButtonAddToCart = styled.button`
-  background-color: Black;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  width: 110px;
-  height: 30px;
-  font-size: medium;
-  cursor: pointer;
-  font-weight: 700;
-  margin-top: 30px;
-  ${(props) => (props.product < 0 ? "pointer-events: none; opacity:0.3;" : "")}
-  /* :disabled {
+// // Button Component
+// export const ButtonAddToCart = styled.button`
+//   background-color: Black;
+//   color: white;
+//   border: none;
+//   border-radius: 20px;
+//   width: 110px;
+//   height: 30px;
+//   font-size: medium;
+//   cursor: pointer;
+//   font-weight: 700;
+//   margin-top: 30px;
+//   ${(props) => (props.product < 0 ? "pointer-events: none; opacity:0.3;" : "")};
+//   ${color};
+
+//   :hover {
+//     background-color: white;
+//     color: black;
+//     text-decoration: underline darkgray;
+//   }
+// `;
+
+/* :disabled {
     pointer-events: none;
     opacity: 0.3;
   } */
-  :hover {
-    background-color: white;
-    color: black;
-    text-decoration: underline darkgray;
-  }
-`;
